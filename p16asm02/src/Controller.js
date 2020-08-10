@@ -101,7 +101,7 @@
     //
         let     _isError = (reportError = false) =>
         {
-        //  Dump anyting? Both __errorMessage and reportError
+        //  Dump anything? Both __errorMessage and reportError
         //  must be non-false.
             if (__errorMessage !== false && reportError !== false)
                     console.error(__errorMessage);
