@@ -91,23 +91,14 @@
     //
     //  The reportError parameter is used to tell _isError()
     //  to report any errors--if reportError is true then
-    //  any errors are dumped via console.error(). However,
-    //  if reportError is an instance of a function it is
-    //  assumed to be a stream (stdout, for example) and
-    //  any __errorMessage is written to that stream.
+    //  any errors are dumped via console.error(). 
     //
-        let     _isError = (reportError = true) =>
+        let     _isError = (reportError = false) =>
         {
         //  Dump anyting? Both __errorMessage and reportError
         //  must be non-false.
-            if (__errorMessage !== false && reportError !== false) {
-                if (reportError instanceof Function)
-                //  reportError is assumed to be an opened
-                //  file stream.
-                    reportError.write(__errorMessage);
-                else
+            if (__errorMessage !== false && reportError !== false)
                     console.error(__errorMessage);
-            }
 
             return __errorMessage;
         };

@@ -1,32 +1,31 @@
 // src/Controller.js
 //
-//  Some basic things to note:
+
+//  We will import a module to handle processing
+//  the command line arguments. This module will
+//  also load any input files.
 //
-//  Modules are always named using PascalCase.
+//  If all goes well it will return an object
+//  literal that gives us access to an array of
+//  input files and data, and some other useful
+//  info, see:
 //
-//  Private member and method names are always camelCase
-//  and will be prefixed with a double __underscore, public
-//  member and method names are also camelCase but with a
-//  single _underscore prefix.
+//      src/modules/Args.js
 //
-//  The public object literal will only return _public
-//  members and methods, revealing keys identical to
-//  the member/method name minus the _prefix. So the
-//  _isError() method is revealed:
+//  For more info.
 //
-//      return {
-//          isError:    _isError
-//      };
-//
-//  These conventions will be used for all of the modules
-//  we write for this application.
-//
+    const   Args = require('./modules/Args');
+
 
     const Controller = () =>
     {
 
     //  We will record any error messages here.
-        let     __errorMessage = false;
+        let     __errorMessage  = false;
+
+    //  The Args module will return an object literal
+    //  which is stored here.
+        let     __args          = false;
 
     
     //  __initialise()
@@ -35,13 +34,31 @@
     //  that it will only be called once when the object
     //  is first instantiated.
     //
-    //  For now, we will just have it set an __errorMessage
-    //  so that we can test that the p16asm.js application
-    //  is properly reporting any errors.
+    //  We will instantiate the Args module here, this
+    //  will process command line arguments and load any
+    //  input files.
     //
         let     __initialise = () =>
         {
-            __setError('Controller error test');
+        //  The Args module expects a single parameter,
+        //  a function/method for recording any errors.
+            __args = Args(__setError);
+
+        //  Error check, return here is _isError() returns
+        //  non-false.
+            if (_isError() !== false)
+                return;
+
+        //  If we get to this point we know the Args 
+        //  module didn't encounter any errors and we
+        //  can proceed with processing and sorting the
+        //  inpur files...we'll do that in part 4.
+        //
+        //  For now we'll just get a dump of input
+        //  parameters.
+            __args.dump();
+        
+            return;
         };
 
 
@@ -51,18 +68,7 @@
     //  buffer--unless errorMessage is false in which
     //  case __errorMessage is reset.
     //
-    //  This method always returns false, this allows
-    //  other methods to simply do:
-    //
-    //      return __setError('something bad happened!');
-    //
-    //  Rather than:
-    //
-    //      __setError('Bad thing...');
-    //      return false;
-    //
-    //  Note that this method will be passed to other
-    //  modules so that they too may record any errors.
+    //  This method always returns false.
     //
         let     __setError = (errorMessage = false) =>
         {
@@ -91,23 +97,14 @@
     //
     //  The reportError parameter is used to tell _isError()
     //  to report any errors--if reportError is true then
-    //  any errors are dumped via console.error(). However,
-    //  if reportError is an instance of a function it is
-    //  assumed to be a stream (stdout, for example) and
-    //  any __errorMessage is written to that stream.
+    //  any errors are dumped via console.error(). 
     //
-        let     _isError = (reportError = true) =>
+        let     _isError = (reportError = false) =>
         {
         //  Dump anyting? Both __errorMessage and reportError
         //  must be non-false.
-            if (__errorMessage !== false && reportError !== false) {
-                if (reportError instanceof Function)
-                //  reportError is assumed to be an opened
-                //  file stream.
-                    reportError.write(__errorMessage);
-                else
+            if (__errorMessage !== false && reportError !== false)
                     console.error(__errorMessage);
-            }
 
             return __errorMessage;
         };
@@ -115,16 +112,10 @@
 
     //  Initialise/constructor.
     //
-    //  This code will be executed when the object is first
-    //  created. We will just call a private function here
-    //  to initialise the module.
-    //
         __initialise();
 
 
-    //  Return any public members/methods. You can see in the
-    //  p16asm.js file that we use the isError()
-    //  method to check for and report any errors.
+    //  Return any public members/methods.
     //
         return {
             isError:    _isError
