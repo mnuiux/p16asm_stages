@@ -1,22 +1,23 @@
 // asm1.p16a
 //
 
-   // Header section
+    // Header section
 
-section ro
-    // Read-only section
+    section ro
+        // Read-only section
 
-section rw
-    // Read-write section
+    section rw
+        // Read-write section
 
-section code
-    // Code section--let's add a line here just to
-    // test the tokeniser.
-    A line here "just to \'test\'
+    section code
+        // Code section--let's add a line here just to
+        // test the tokeniser.
+        A line here "just to \'test\'
 
-    the
+        the
 
-    tokeniser
-    and a[few]additional{tokens}
+        tokeniser
 
-    end
+        and a[few]additional{tokens}
+
+        end
