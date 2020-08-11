@@ -1,4 +1,4 @@
-# p16asm_stages/p16asm01
+# p16asm_stages/p16asm02
 
 For more information see [this page](https://mnuiux.github.io/#Blog/Project16-part-3)
 

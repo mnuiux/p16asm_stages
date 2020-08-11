@@ -1,0 +1,13 @@
+// asm0.p16a
+//
+
+   // Header section
+
+section ro
+    // Read-only section
+
+section rw
+    // Read-write section
+
+section code
+    // Code section

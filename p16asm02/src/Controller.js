@@ -44,7 +44,7 @@
         //  a function/method for recording any errors.
             __args = Args(__setError);
 
-        //  Error check, return here is _isError() returns
+        //  Error check, return here if _isError() returns
         //  non-false.
             if (_isError() !== false)
                 return;
@@ -52,7 +52,7 @@
         //  If we get to this point we know the Args 
         //  module didn't encounter any errors and we
         //  can proceed with processing and sorting the
-        //  inpur files...we'll do that in part 4.
+        //  input files.
         //
         //  For now we'll just get a dump of input
         //  parameters.
